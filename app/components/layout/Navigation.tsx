@@ -2,15 +2,17 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Button } from "@/app/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { BarChart3, Plus, LogOut, User } from "lucide-react"
+import { User as UserType } from "@/lib/types"
+import { useAuth } from "@/providers"
 
 export default function Navigation() {
   const pathname = usePathname()
-  
-  // TODO: Get actual user authentication state
-  const isAuthenticated = false
-  const user = null
+
+  const { user, loading, refreshUser } = useAuth();
+  const isAuthenticated = !!user;
+
 
   const navItems = [
     { href: "/", label: "Home", icon: BarChart3 },
