@@ -1,5 +1,6 @@
 import PollCard from "@/components/polls/PollCard"
 import { Poll } from "@/lib/types"
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // Mock data for demonstration
 const mockPolls: Poll[] = [
@@ -35,25 +36,25 @@ const mockPolls: Poll[] = [
 
 export default function PollsPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Browse Polls</h1>
-        <p className="text-muted-foreground">
-          Discover and vote on polls created by the community
-        </p>
-      </div>
-      
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {mockPolls.map((poll) => (
-          <PollCard key={poll.id} poll={poll} />
-        ))}
-      </div>
-      
-      {mockPolls.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">No polls available yet.</p>
+    <ProtectedRoute>
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Browse Polls</h1>
+          <p className="text-muted-foreground">
+            Discover and vote on polls created by the community
+          </p>
         </div>
-      )}
-    </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {mockPolls.map((poll) => (
+            <PollCard key={poll.id} poll={poll} />
+          ))}
+        </div>
+        {mockPolls.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No polls available yet.</p>
+          </div>
+        )}
+      </div>
+    </ProtectedRoute>
   )
 }

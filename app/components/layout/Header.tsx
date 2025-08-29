@@ -2,10 +2,17 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { useSession, signOut } from "next-auth/react"
+import { useAuth } from "@/providers";
+import { supabase } from "@/lib/supabaseClient";
+
 
 export default function Header() {
-  const { data: session, status } = useSession()
+  const { user, loading, refreshUser } = useAuth();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    refreshUser();
+  };
 
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -19,7 +26,7 @@ export default function Header() {
             <Link href="/polls" className="text-sm font-medium hover:text-primary">
               Browse Polls
             </Link>
-            {session && (
+            {user && (
               <Link href="/polls/create" className="text-sm font-medium hover:text-primary">
                 Create Poll
               </Link>
@@ -27,14 +34,14 @@ export default function Header() {
           </nav>
           
           <div className="flex items-center space-x-4">
-            {status === "loading" ? (
+            {loading ? (
               <div className="h-8 w-20 bg-gray-200 rounded animate-pulse" />
-            ) : session ? (
+            ) : user ? (
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-muted-foreground">
-                  Welcome, {session.user?.name}
+                  Welcome, {user.name || user.email}
                 </span>
-                <Button variant="outline" onClick={() => signOut()}>
+                <Button variant="outline" onClick={handleSignOut}>
                   Sign Out
                 </Button>
               </div>

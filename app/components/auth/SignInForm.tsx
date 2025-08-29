@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
+import { signIn } from "@/lib/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -19,13 +19,9 @@ export default function SignInForm() {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    const user = await signIn(email, password);
     setIsLoading(false);
-    if (res?.ok) {
+    if (user) {
       router.push("/polls");
     } else {
       setError("Invalid email or password");
