@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ALX Polly - Polling App
+
+A modern, full-featured polling application built with Next.js 15, TypeScript, and Shadcn UI components.
+
+## Features
+
+- **User Authentication**: Secure sign-up and sign-in with NextAuth.js
+- **Poll Creation**: Create custom polls with multiple options and expiration dates
+- **Poll Voting**: Interactive voting system with real-time results
+- **Responsive Design**: Modern UI built with Tailwind CSS and Shadcn components
+- **TypeScript**: Full type safety throughout the application
+
+## Project Structure
+
+```
+app/
+├── components/
+│   ├── auth/           # Authentication components
+│   │   ├── SignInForm.tsx
+│   │   └── SignUpForm.tsx
+│   ├── layout/         # Layout components
+│   │   └── Header.tsx
+│   ├── polls/          # Poll-related components
+│   │   ├── PollCard.tsx
+│   │   └── CreatePollForm.tsx
+│   └── ui/             # Shadcn UI components
+│       ├── button.tsx
+│       ├── card.tsx
+│       └── input.tsx
+├── lib/                 # Utility functions and configurations
+│   ├── auth.ts         # NextAuth configuration
+│   ├── types.ts        # TypeScript type definitions
+│   └── utils.ts        # Utility functions
+├── auth/                # Authentication pages
+│   ├── signin/
+│   └── signup/
+├── polls/               # Poll-related pages
+│   ├── page.tsx        # Browse polls
+│   └── create/
+├── api/                 # API routes
+│   └── auth/           # NextAuth API endpoints
+├── layout.tsx           # Root layout
+├── page.tsx            # Home page
+└── providers.tsx       # NextAuth session provider
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd alx-polly
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+# Create .env.local file
+NEXTAUTH_SECRET=your-secret-key-here
+NEXTAUTH_URL=http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Key Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Authentication System
+- **NextAuth.js**: Handles user authentication with JWT strategy
+- **SignInForm**: User login form with email/password
+- **SignUpForm**: User registration form with validation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Poll Management
+- **CreatePollForm**: Form for creating new polls with dynamic options
+- **PollCard**: Displays individual polls with voting functionality
+- **Types**: Comprehensive TypeScript interfaces for polls, users, and votes
 
-## Deploy on Vercel
+### UI Components
+- **Shadcn Components**: Pre-built, accessible UI components
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Dark Mode Support**: Built-in dark/light theme switching
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Adding New Features
+
+1. **New Components**: Place in appropriate subdirectory under `components/`
+2. **New Pages**: Create in the `app/` directory following Next.js 15 conventions
+3. **New Types**: Add to `lib/types.ts`
+4. **New API Routes**: Create in `app/api/` directory
+
+### Styling
+
+- **Tailwind CSS**: Utility-first CSS framework
+- **CSS Variables**: Design system tokens for consistent theming
+- **Component Variants**: Use `class-variance-authority` for component variants
+
+### State Management
+
+- **React Hooks**: Local component state
+- **NextAuth**: Global authentication state
+- **Future**: Consider Zustand or Redux for complex state management
+
+## Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository
+2. Set environment variables
+3. Deploy automatically on push
+
+### Other Platforms
+- **Netlify**: Build command: `npm run build`
+- **Railway**: Supports Next.js out of the box
+- **Docker**: Use the provided Dockerfile
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Roadmap
+
+- [ ] Database integration (PostgreSQL/MySQL)
+- [ ] Real-time updates with WebSockets
+- [ ] Advanced poll analytics
+- [ ] Social sharing features
+- [ ] Mobile app (React Native)
+- [ ] API rate limiting
+- [ ] Advanced user roles and permissions

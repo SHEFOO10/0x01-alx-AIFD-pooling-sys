@@ -1,0 +1,56 @@
+"use client"
+
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { useSession, signOut } from "next-auth/react"
+
+export default function Header() {
+  const { data: session, status } = useSession()
+
+  return (
+    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-2xl font-bold">
+            ALX Polly
+          </Link>
+          
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link href="/polls" className="text-sm font-medium hover:text-primary">
+              Browse Polls
+            </Link>
+            {session && (
+              <Link href="/polls/create" className="text-sm font-medium hover:text-primary">
+                Create Poll
+              </Link>
+            )}
+          </nav>
+          
+          <div className="flex items-center space-x-4">
+            {status === "loading" ? (
+              <div className="h-8 w-20 bg-gray-200 rounded animate-pulse" />
+            ) : session ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-muted-foreground">
+                  Welcome, {session.user?.name}
+                </span>
+                <Button variant="outline" onClick={() => signOut()}>
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link href="/auth/signin">
+                  <Button variant="outline">Sign In</Button>
+                </Link>
+                <Link href="/auth/signup">
+                  <Button>Sign Up</Button>
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
